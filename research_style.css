@@ -19,12 +19,16 @@ html{
 	font-family: "EB Garamond";
 	font-size: 34px;
 	z-index: 500;
-	width: 2002.5px;
+	width: 1980px;
 	height: 46px;
 	background-color: #FFFEEE;
 	padding-top: 24px;
 	opacity: .93;
 	box-shadow: 4px 4px 15px #bbbbbb;
+}
+
+.emb-video {
+	width:100%;
 }
 
 .nav_categories {
@@ -66,25 +70,10 @@ html{
 	text-decoration: none;
 }
 
-.container img{
-	vertical-align: text-bottom;
-    padding: 0px 10px;
-}
-
-#contact {
-	text-align: center;
-}
-
-#contact a{
-	font-size: 42px;
-	text-decoration: none;
-	color: #444444;
-}
-
-#name {
+#title {
 	font-family: 'Montserrat', sans-serif;
 	margin-top: 40px;
-	font-size: 80px;
+	font-size: 50px;
 	text-align: center;
 	color: #444444;
 }
