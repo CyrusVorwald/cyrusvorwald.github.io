@@ -72,20 +72,10 @@ html{
     padding: 0px 10px;
 }
 
-#contact {
-	text-align: center;
-}
-
-#contact a{
-	font-size: 42px;
-	text-decoration: none;
-	color: #444444;
-}
-
 #name {
 	font-family: 'Montserrat', sans-serif;
 	margin-top: 40px;
 	font-size: 80px;
 	text-align: center;
-	color: #444444;
+	color: #333333;
 }
