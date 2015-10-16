@@ -9,6 +9,7 @@
     <link href='https://fonts.googleapis.com/css?family=Montserrat:700' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=EB+Garamond' rel='stylesheet' type='text/css'>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <script src="js/app.js"></script>
   </head>
   <body>
@@ -22,16 +23,57 @@
 		</div>
 	</div>
 	<div class="container">
-		<div id="title">Monocular Visual Odometry on <br>Resource Constrained Systems</div>
-		<div id="subtitle"></div>
+		<div id="title">Monocular Visual Odometry on Resource Constrained Systems</div>
 		<div id="description">
-			<p>Demonstration of the current implementation using an i5 processor
-			<style>.embed-container { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; } .embed-container iframe, .embed-container object, .embed-container embed { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }</style>
+			<p>Below is a demonstration of the current implementation of the camera pose estimation algorithm. The red path is my code's trajectory. The green path is the true trajectory given by the <a href="http://www.cvlibs.net/datasets/kitti/eval_odometry.php">KITTI Dataset</a>.</p>
+			<style>.embed-container { position: relative; margin: 0 auto; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 80%;} .embed-container iframe, .embed-container object, .embed-container embed { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }</style>
 				<div class="embed-container"><iframe src="https://www.youtube.com/embed/JUYKC98dq2Q" frameborder="0" allowfullscreen></iframe></div>
-				<br><br>The red path is my code's trajectory. The green path is the true trajectory given by the <a href="http://www.cvlibs.net/datasets/kitti/eval_odometry.php">KITTI Dataset</a>.
-				<script type="math/tex">\mathit{I}^t</script>
-			</p>
+			<p>We can think of video footage as the ordered collection of image frames. For any given frame captured at times <script type="math/tex">t</script> and <script type="math/tex">t+1</script>, represented as <script type="math/tex">I^t</script> and 
+			<script type="math/tex">\mathit{I}^{t+1}</script> respectively, we can find a rotation matrix <script type="math/tex">R</script> and a translation vector <script type="math/tex">t</script>.</p>
+			<h3>Assumptions:</h3>
+			<ol>
+				<li>The images are undistorted</li>
+				<li>The camera is calibrated</li>
+				<li>The scale (magnitude) is known</li>
+			</ol>
+			<h3>Input:</h3>Frames <script type="math/tex">I^t</script> and <script type="math/tex">I^{t+1}</script>
+			<h3>Output:</h3>Matrix <script type="math/tex">R</script> and vector <script type="math/tex">t</script>
+			<h3>Algorithm</h3>
+			<ol>
+				<li>Use the <a href = "http://lanl.arxiv.org/pdf/0810.2434.pdf">FAST feature detection algorithm</a> to detect corners in <script type="math/tex">I^t</script> and 
+					<script type="math/tex">I^{t+1}</script></li>
+				<li>Match the detected featur  using a <a href="http://robots.stanford.edu/cs223b04/algo_tracking.pdf">Kanade-Lucas-Tomasi feature tracking algorithm</a></li>
+				<li>Compute the essential matrix using RANSAC to filter points that are outliers.</li>
+				<li>Extract <script type="math/tex">R</script> and <script type="math/tex">t</script> from the essential matrix</li>
+				<li>Concatenate scaled translation vectors and rotation matrices</li>
+			</ol>
+			<h3>Feature Detection</h3>
+			<p>We first detect which features to track between frames. The FAST feature detection algorithm works best on low resources.</p>
+			<figure>
+				<img src ="img/fast_speedtest.jpg"/>
+				<figcaption>
+					For the central pixel to be a corner, there must be a set of 12 contiguous pixels in the circle<br>which are all brighter than 
+					<script type="math/tex">P+t</script> or darker than <script type="math/tex">P-t</script>, where <script type="math/tex">t</script>
+					is a selected threshold
+				</figcaption>
+			</figure>
+			<p>We then sort these pixels as a collection by their <a href="http://docs.opencv.org/modules/features2d/doc/common_interfaces_of_feature_detectors.
+				html#KeyPoint">response</a> and discard either the bottom 20% or a specified number of points, whichever is higher. We sort and discard again the same way, except this time by their size instead of response</p>
+			<h3>Feature Matching</h3>
 		</div>
 	</div>
+	<div id="title">SENTINEL: Mobile Scanner with Optical Character Recognition</div>
+		<figure>
+			<img src ="img/receipt_1.jpg"/>
+			<figcaption>
+				Image taken with Amazon Fire Phone
+			</figcaption>
+		</figure>
+		<figure>
+			<img src ="img/receipt_2.jpg"/>
+			<figcaption>
+				Image taken with Samsung Galaxy S4
+			</figcaption>
+		</figure>
   </body>
 </html>

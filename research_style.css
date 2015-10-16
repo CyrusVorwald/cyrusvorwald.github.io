@@ -23,12 +23,11 @@ html{
 	height: 46px;
 	background-color: #FFFEEE;
 	padding-top: 24px;
-	opacity: .93;
 	box-shadow: 4px 4px 15px #bbbbbb;
 }
 
-.emb-video {
-	width:100%;
+.embed-container {
+	box-shadow: 6px 6px 15px #bbbbbb;
 }
 
 .nav_categories {
@@ -50,7 +49,7 @@ html{
 }
 
 .nav_categories ul li a:hover {
-	color: grey;
+	color: gray;
 }
 
 #categories { display:table; margin:0 auto; }
@@ -76,4 +75,16 @@ html{
 	font-size: 50px;
 	text-align: center;
 	color: #444444;
+}
+
+figure {
+    display: block;
+    text-align: center;
+    margin: 0 auto;
+}
+figure img {
+    box-shadow: 2px 2px 15px #bbbbbb;
+}
+figure figcaption {
+	font-size: 18pt;
 }
